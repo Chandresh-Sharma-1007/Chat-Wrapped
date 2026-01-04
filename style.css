@@ -1,0 +1,220 @@
+ /* ===== RESET ===== */
+        * {
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            color: #fff;
+            background: #000;
+            /* We allow the body to handle the height, but hide overflow on body 
+         so the #slides container handles the scrolling */
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* ===== BACKGROUND ===== */
+        .bg {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at top, #1db95433, transparent 60%),
+                radial-gradient(circle at bottom, #1db95422, transparent 60%);
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* ===== FLOATING PARTICLES ===== */
+        .dot {
+            position: fixed;
+            width: 3px;
+            height: 3px;
+            background: #1db954;
+            border-radius: 50%;
+            opacity: .4;
+            animation: float 6s infinite linear;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            from {
+                transform: translateY(100vh);
+            }
+
+            to {
+                transform: translateY(-10vh);
+            }
+        }
+
+        /* ===== COMMON LAYOUT ===== */
+        .screen {
+            width: 100vw;
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+            /* Flex is used for Login & Loading, but removed for Slides to allow scrolling */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .hidden {
+            opacity: 0;
+            pointer-events: none;
+            z-index: -10;
+            display: none !important;
+            /* Fully hide to prevent scroll interference */
+        }
+
+        /* ===== SLIDES CONTAINER (THE FIX) ===== */
+        /* This allows vertical scrolling with a "snap" effect */
+        #slides {
+            display: block;
+            /* Use block so items stack vertically naturally */
+            overflow-y: scroll;
+            /* Enable vertical scrolling */
+            scroll-snap-type: y mandatory;
+            /* Forces the page to snap to each slide */
+            scroll-behavior: smooth;
+            z-index: 10;
+        }
+
+        /* Hide scrollbar for cleaner look (optional) */
+        #slides::-webkit-scrollbar {
+            display: none;
+        }
+
+        #slides {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            
+        }
+
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            /* Full screen height */
+            scroll-snap-align: start;
+            /* Snap to the start of this element */
+
+            /* Center content inside the slide */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        /* ===== CARDS ===== */
+        .card {
+            width: 86%;
+            max-width: 420px;
+            padding: 8% 7%;
+            border-radius: 28px;
+            background: #121212;
+            box-shadow: 0 30px 80px #000;
+            text-align: center;
+        }
+
+        .audio-card {
+            width: 100%;
+            max-width: 440px;
+            padding: 8% 7%;
+            border-radius: 30px;
+            background: linear-gradient(180deg, #1db954, #121212 55%);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 1.9rem;
+            font-weight: 900;
+            margin: 0 0 8px;
+        }
+
+        p {
+            font-size: 1rem;
+            opacity: .85;
+            margin: 0;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 22px;
+            border: none;
+            border-radius: 40px;
+            background: #1db954;
+            color: #000;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            margin-top: 14px;
+            border-radius: 14px;
+            border: none;
+            background: #1f1f1f;
+            color: #fff;
+            font-size: .95rem;
+        }
+
+        audio {
+            width: 100%;
+            margin-top: 12px;
+        }
+
+        /* ===== LOADING ===== */
+        #loading {
+            flex-direction: column;
+        }
+
+        .loader {
+            width: 58px;
+            height: 58px;
+            border: 6px solid #1f1f1f;
+            border-top: 6px solid #1db954;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 18px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ===== CONFETTI ===== */
+        .confetti {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: #1db954;
+            animation: fall 3s linear forwards;
+            z-index: 100;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* COPYRIGHT */
+        .copyright {
+            position: fixed;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+            opacity: .5;
+            pointer-events: none;
+            z-index: 50;
+        }
